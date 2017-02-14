@@ -1,9 +1,7 @@
 (function (angular) {
 	'use strict';
 
-	function BaseController() {
-		console.log(_.head([1, 2, 3]));
-	}
+	function BaseController() {}
 
 	function config() {}
 

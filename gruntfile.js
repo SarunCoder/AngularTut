@@ -2,6 +2,9 @@ module.exports = function(grunt) {
 
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
+    clean: {
+      release: ['dist']
+    },
     concat: {
       options: {
         separator: ';'
@@ -20,12 +23,43 @@ module.exports = function(grunt) {
           'dist/<%= pkg.name %>.min.js': ['<%= concat.dist.dest %>']
         }
       }
+    },
+    copy: {
+      main: {
+        files: [
+          {
+            expand: true,
+            src: 'index.html',
+            dest: 'dist/'
+          }
+        ]
+      },
+      libs: {
+        files: [
+          {
+            expand: true,
+            cwd: 'node_modules/angular/',
+            src: '*.js',
+            dest: 'dist/libs/angular',
+            filter: 'isFile'
+          },
+          {
+            expand: true,
+            cwd: 'node_modules/lodash/',
+            src: '*.js',
+            dest: 'dist/libs/lodash/',
+            filter: 'isFile'
+          }
+        ]
+      }
     }
   });
 
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-concat');
+  grunt.loadNpmTasks('grunt-contrib-copy');
+  grunt.loadNpmTasks('grunt-contrib-clean');
 
-  grunt.registerTask('default', ['concat', 'uglify']);
+  grunt.registerTask('default', ['clean','concat', 'uglify', 'copy']);
 
 };
