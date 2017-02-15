@@ -1,8 +1,13 @@
-body{
+.custom-body {
 	font-family: 'Source Sans Pro', sans-serif;
 	font-size: 18px;
 	color: #383838;
 	line-height: 30px;
 	background-color: #8ddaf4;
 	line-height: 1.5;
+}
+
+.var-value {
+	font-size: 20px;
+	color: red;
 }
