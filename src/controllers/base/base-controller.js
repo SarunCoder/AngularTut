@@ -1,7 +1,18 @@
 (function (angular) {
 	'use strict';
 
-	function BaseController($scope) {
+	function BaseController($scope, STUDENTS_LIST) {
+
+		var Student = function () {
+			return {
+				"name": "",
+				"age": 0,
+				"collegeYear": 0,
+				"credits": 0,
+				"points": 0
+			};
+		};
+
 		// $scope variables
 		$scope.VAR1 = "I am the value of $scope.VAR1";
 		$scope.VAR2 = "I am the value of $scope.VAR2";
@@ -45,16 +56,28 @@
 			}, 3000);
 		};
 		ctrl.refreshScope();
+
+
+		// Repeaters and ng-model
+		ctrl.students = STUDENTS_LIST;
+		ctrl.newStudent = Student();
+
+		ctrl.addNewStudent = function() {
+			var newStudent = _.clone(ctrl.newStudent);
+			ctrl.students.push(newStudent);
+		};
 	}
 
-	BaseController.$inject = ['$scope'];
+	BaseController.$inject = ['$scope', 'STUDENTS_LIST'];
 
 	function config() {}
 
 	config.$inject = [];
 
 	angular
-		.module('angular-tutorials-app', [])
+		.module('angular-tutorials-app', [
+			'value.students'
+		])
 		.constant('API_BASE', '')
 		.config(config)
 		.controller('BaseController', BaseController)
