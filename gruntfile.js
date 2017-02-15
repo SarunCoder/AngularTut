@@ -51,6 +51,17 @@ module.exports = function(grunt) {
             filter: 'isFile'
           }
         ]
+      },
+      styles: {
+        files: [
+          {
+            expand: true,
+            cwd: 'styles/',
+            src: '*.css',
+            dest: 'dist/style/',
+            filter: 'isFile'
+          }
+        ]
       }
     }
   });
