@@ -1,7 +1,7 @@
 (function (angular) {
 	'use strict';
 
-	function BaseController($scope, STUDENTS_LIST) {
+	function BaseController($scope, StudentService, STUDENTS_LIST) {
 
 		var Student = function () {
 			return {
@@ -29,7 +29,7 @@
 		$scope.autoUpdate = function () {
 			setTimeout(function() {
 	          $scope.currentTime = (new Date()).getTime();;
-	          console.log('Updated $scope Time: '+ $scope.currentTime);
+	          // console.log('Updated $scope Time: '+ $scope.currentTime);
 	        }, 8000);
 		};
 		$scope.autoUpdate();
@@ -51,32 +51,59 @@
 			setTimeout(function () {
 				$scope.$apply(function() {
 					ctrl.currentTime = (new Date()).getTime();
-					console.log('Updated Controller Time: '+ $scope.currentTime);
+					// console.log('Updated Controller Time: '+ $scope.currentTime);
 				});
 			}, 3000);
 		};
 		ctrl.refreshScope();
 
 
+		// Form error
+		$scope.formError = "";
+		// Using Service recipe
+		StudentService.setCurrentStudentList(STUDENTS_LIST);
+
 		// Repeaters and ng-model
-		ctrl.students = STUDENTS_LIST;
+		ctrl.students = StudentService.getCurrentStudentList();
 		ctrl.newStudent = Student();
 
 		ctrl.addNewStudent = function() {
-			var newStudent = _.clone(ctrl.newStudent);
-			ctrl.students.push(newStudent);
+			var returnVal = StudentService.addStudent(ctrl.newStudent);
+			if(returnVal instanceof Error) {
+				$scope.formError = returnVal.message;
+				// throw returnVal;
+				alert(returnVal.message);
+			} else {
+				ctrl.students = returnVal;
+				$scope.formError = "";
+			}
 		};
 	}
 
-	BaseController.$inject = ['$scope', 'STUDENTS_LIST'];
+	BaseController.$inject = ['$scope', 'StudentService', 'STUDENTS_LIST'];
 
-	function config() {}
+	function config($provide, STUDENTS_LIST_CONSTANT) {
+		console.log('MESSAGE: Config functionruns first before controller and value');
+		// console.log(STUDENTS_LIST_CONSTANT);
+		var alumni = {
+			"name": "Sakthi",
+			"age": 28,
+			"collegeYear": 5,
+			"credits": 33,
+			"points": 100
+		};
+		var STUDENTS_LIST = STUDENTS_LIST_CONSTANT;
+		STUDENTS_LIST.push(alumni);
 
-	config.$inject = [];
+		$provide.value('STUDENTS_LIST', STUDENTS_LIST);
+	}
+
+	config.$inject = ['$provide', 'STUDENTS_LIST_CONSTANT'];
 
 	angular
 		.module('angular-tutorials-app', [
-			'value.students'
+			'constant.students',
+			'services.student-service'
 		])
 		.constant('API_BASE', '')
 		.config(config)
