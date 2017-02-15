@@ -31,6 +31,13 @@ module.exports = function(grunt) {
             expand: true,
             src: 'index.html',
             dest: 'dist/'
+          },
+          {
+            expand: true,
+            cwd: 'src/directives/',
+            src: '*.html',
+            dest: 'dist/',
+            filter: 'isFile'
           }
         ]
       },
