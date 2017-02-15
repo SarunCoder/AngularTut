@@ -3,13 +3,89 @@
 	<head>
 		<title>Angular Tutorials</title>
 
-		<link rel="stylesheet" type="text/css" href="style/style-index.css">
+		<link rel="stylesheet" type="text/css" href="style/css/custom/style-index.css">
+		<link rel="stylesheet" type="text/css" href="libs/bootstrap/css/bootstrap.min.css">
 	</head>
-	<body data-ng-app="angular-tutorials-app" data-ng-strict-di>
+	<body data-ng-app="angular-tutorials-app"  data-ng-controller="BaseController as BaseCtrl" data-ng-strict-di class="custom-body">
 		<header>
-			<h3 align="center">Angular 1.x Basics</h3>
+			<div class="jumbotron text-center">
+				<h4>Angular 1.x Basics</h4>
+			</div>
 		</header>
-		<div data-ng-controller="BaseController"></div>
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-md-5 text-center">
+					<div class="jumbotron row">SCOPE VARIABLES</div>
+					<br/>
+					<div class="row">
+						$scope.VAR1:
+						<span class="var-value">{{VAR1}}</span>
+					</div>
+					<br/>
+					<div class="row">
+						$scope.VAR2:
+						<span class="var-value" data-ng-bind="VAR2"></span>
+					</div>
+					<br/>
+					<div class="row">
+						$scope.currentTime:
+						<span class="var-value" data-ng-bind="currentTime | date : 'medium'"></span>
+					</div>
+					<br/>
+					<div class="row">
+						<button
+							type="button"
+							class="btn btn-default"
+							data-ng-click="updateTime()"
+						>
+						Change $scope Time
+						</button>
+					</div>
+				</div>
+				<div class="col-md-2 text-center">
+					<br/><br/><br/><br/><br/>
+					<br/><br/><br/><br/><br/>
+					<br/><br/><br/><br/><br/>
+					<div class="row">
+						<button
+							type="button"
+							class="btn btn-default"
+							data-ng-click=""
+						>
+						Invoke $scope refresh through ng-click
+						</button>
+					</div>
+				</div>
+				<div class="col-md-5 text-center">
+					<div class="jumbotron row">CONTROLLER VARIABLES</div>
+					<br/>
+					<div class="row">
+						BaseController.VAR1:
+						<span class="var-value">{{BaseCtrl.VAR1}}</span>
+					</div>
+					<br/>
+					<div class="row">
+						BaseController.VAR2:
+						<span class="var-value" data-ng-bind="BaseCtrl.VAR2"></span>
+					</div>
+					<br/>
+					<div class="row">
+						BaseController.currentTime:
+						<span class="var-value" data-ng-bind="BaseCtrl.currentTime | date : 'medium'"></span>
+					</div>
+					<br/>
+					<div class="row">
+						<button
+							type="button"
+							class="btn btn-default"
+							data-ng-click="BaseCtrl.updateTime()"
+						>
+						Change BaseCtrl Time
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
 
 		<script src="libs/angular/angular.min.js"></script>
 		<script src="libs/lodash/lodash.js"></script>

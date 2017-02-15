@@ -49,6 +49,12 @@ module.exports = function(grunt) {
             src: '*.js',
             dest: 'dist/libs/lodash/',
             filter: 'isFile'
+          },
+          {
+            expand: true,
+            cwd: 'node_modules/bootstrap/dist/',
+            src: '**/*',
+            dest: 'dist/libs/bootstrap/'
           }
         ]
       },
@@ -58,7 +64,7 @@ module.exports = function(grunt) {
             expand: true,
             cwd: 'styles/',
             src: '*.css',
-            dest: 'dist/style/',
+            dest: 'dist/style/css/custom',
             filter: 'isFile'
           }
         ]
