@@ -103,7 +103,8 @@
 	angular
 		.module('angular-tutorials-app', [
 			'constant.students',
-			'services.student-service'
+			'services.student-service',
+			'directive.students-list'
 		])
 		.constant('API_BASE', '')
 		.config(config)
